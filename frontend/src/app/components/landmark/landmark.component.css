@@ -1,0 +1,8 @@
+*[contenteditable="false"] {
+  padding: 5px;
+}
+*[contenteditable="true"] {
+  background-color: rgb(244, 245, 247);
+  padding: 5px;
+  border-radius: 8px;
+}

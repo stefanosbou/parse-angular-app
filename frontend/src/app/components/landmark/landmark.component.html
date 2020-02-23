@@ -1,0 +1,58 @@
+<main *ngIf="landmark">
+    <div class="jumbotron">
+        <div class="container">
+            <div class="float-right">
+                <button *ngIf="landmark.canWrite && !editing" class="btn btn-outline-dark my-2 my-sm-0"
+                        (click)="toggleEditing()">Edit Article
+                </button>
+                <div *ngIf="landmark.canWrite && editing" class="btn-group">
+                    <button class="btn btn-outline-success my-2 my-sm-0" (click)="saveChanges()">Save Changes</button>
+                    <button class="btn btn-outline-dark my-2 my-sm-0" (click)="discardChanges()">Cancel</button>
+                </div>
+            </div>
+            <div class="float-left mr-5">
+                <img *ngIf="landmark.photo_thumb" src="{{ landmark.photo_thumb.url }}" class="rounded">
+                <img *ngIf="!landmark.photo_thumb" class="rounded" src="https://via.placeholder.com/250"
+                     alt="Placeholder">
+                <button *ngIf="landmark.canWrite" class="btn btn-outline-dark btn-sm mr-auto ml-auto mt-1" style="display: block;" type="button"
+                        (click)="fileInput.click()">Update image
+                  <span *ngIf="uploading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </button>
+              <input #fileInput
+                     hidden
+                     type="file"
+                     accept="image/*"
+                     (change)="onFileChanged($event)">
+            </div>
+            <p class="display-3" [attr.contenteditable]="editing" (input)="landmark.title = $event.target.innerText">{{
+                landmark.title }}</p>
+            <p>
+                <small class="text-muted" [attr.contenteditable]="editing"
+                       (input)="landmark.url = $event.target.innerText">{{
+                    landmark.url }}
+                </small>
+            </p>
+            <p>
+                <small class="text-muted" [attr.contenteditable]="editing"
+                       (input)="landmark.short_info = $event.target.innerText">{{ landmark.short_info }}
+                </small>
+            </p>
+            <p><a class="btn btn-primary btn-lg" href="{{landmark.url}}" target="_blank" role="button">Visit website
+                »</a></p>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Description</h2>
+                <p>
+                    <small [attr.contenteditable]="editing" (input)="landmark.description = $event.target.innerText">
+                        {{landmark.description}}
+                    </small>
+                </p>
+            </div>
+        </div>
+    </div>
+</main>
+<ngx-alerts></ngx-alerts>
